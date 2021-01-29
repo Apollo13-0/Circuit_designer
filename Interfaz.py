@@ -122,3 +122,15 @@ class Interfaz:
 
     def mover_Elemento(self, evento):
         print(str(evento.x)+" "+str(evento.y))
+
+
+class Elemento:
+    num = 1
+
+    def __init__(self, type: str ):
+        self.id = type + str(Elemento.num)
+        Elemento.num += 1
+
+
+    def get_id(self):
+        return self.id
