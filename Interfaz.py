@@ -148,5 +148,5 @@ class MiniInterfaz:
 
         # Entry
 
-        mass_entry = Entry(main_screen, font=font2, bd=3)
+        mass_entry = Entry(self.__name_screen, font=font2, bd=3)
         mass_entry.place(x=20, y=200, width=260, height=50)
