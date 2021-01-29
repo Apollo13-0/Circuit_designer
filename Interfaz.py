@@ -1,6 +1,7 @@
 # import modules
 
 from tkinter import *
+from tkinter import messagebox
 
 # Colors
 
@@ -138,24 +139,40 @@ class MiniInterfaz:
         self.__name_screen.geometry("500x400+200+200")
         self.__name_screen.resizable(0, 0)
 
-        self.__name_canva = Canvas(self.__name_screen, width=self.__size_x, height=self.__size_y, bg=white,
-                                    highlightbackground=white)
+        self.__name_canva = Canvas(self.__name_screen, width=self.__size_x, height=self.__size_y, bg=deep_sea,
+                                    highlightbackground=deep_sea)
         self.__name_canva.pack()
 
-        namelabel = Label(self.__name_screen, text="Inserte nombre y valor", font=font3, fg=tiber, bg=tiber)
-        namelabel.place(x=320, y=750)
-        # disp_var.set("Displacement: " + str(thrustSim.thrust))
+        namelabel = Label(self.__name_screen, text="Inserte nombre y valor", font=font3, fg=tiber, bg=deep_sea)
+        namelabel.place(x=80, y=10)
 
-        # Entry
+        nameEle = Label(self.__name_screen, text="Nombre", font=font3, fg=dark_tangerine, bg=deep_sea)
+        nameEle.place(x=200, y=60)
 
-        mass_entry = Entry(self.__name_screen, font=font2, bd=3)
-        mass_entry.place(x=20, y=200, width=260, height=50)
+        name_entry = Entry(self.__name_screen, font=font2, bd=2)
+        name_entry.place(x=135, y=100, width=230, height=50)
+
+        valorEle = Label(self.__name_screen, text="Valor", font=font3, fg=dark_tangerine, bg=deep_sea)
+        valorEle.place(x=200, y=150)
+
+        v_entry = Entry(self.__name_screen, font=font2, bd=2)
+        v_entry.place(x=135, y=190, width=230, height=50)
+
+        save_button = Button(self.__name_screen, text="Guardar", font=font2, bg=brown, activeforeground=dark_tangerine, command=lambda x=name_entry, y=v_entry,z=self.__name_screen: self.saveName(x, y,z))
+        save_button.place(x=135, y=260, width=230, height=50)
+
+    def saveName(self, name, valor,ventana):
+        Elemento(name.get(), int(valor.get()))
+        messagebox.showinfo(title="Nombre guardado", message="El nombre y el valor han sido guardados exitosamente")
+        ventana.destroy()
+
 
 class Elemento:
     num = 1
 
-    def __init__(self, type: str ):
+    def __init__(self, type: str, value: int ):
         self.id = type + str(Elemento.num)
+        self.value = value
         Elemento.num += 1
 
 
