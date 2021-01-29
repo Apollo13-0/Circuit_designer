@@ -50,10 +50,12 @@ class Interfaz:
                                     highlightbackground=white)
         self.__graph_canva.pack()
 
-    
+
         self.__graph_canva.tag_bind("movil", "<ButtonPress-1>", self.presion_boton)
         self.__graph_canva.tag_bind("movil", "<Button1-Motion>", self.mover)
         self.__graph_canva.tag_bind("movil", "<ButtonPress-3>", self.presion_union)
+        self.__graph_canva.tag_bind("movil", "<ButtonPress-2>", self.cambioNombre)
+
         self.carta_seleccionada = None
         # Canvas for inputs
 
@@ -77,6 +79,9 @@ class Interfaz:
 
         mainloop()
 
+    def cambioNombre(self, evento):
+        MiniInterfaz()
+
     def crearResistencia(self):
         self.__graph_canva.create_rectangle(550, 550, 610, 610, fill=brown, outline=brown, tags="movil")
 
@@ -84,7 +89,7 @@ class Interfaz:
         self.__graph_canva.create_oval(530, 530, 600, 600, outline=dark_tangerine, fill=dark_tangerine, width=2, tags="movil")
 
     def crearLinea(self, pos1, pos2):
-        self.__graph_canva.create_line(pos1[0],pos1[1],pos2[0],pos2[1],fill="#000000",width=15)
+        self.__graph_canva.create_line(pos1[0],pos1[1],pos2[0],pos2[1],fill="#000000",width=15, tags="linea")
         global primerPos, segundObjBoole, primerObjBoole,segundPos
         primerObjBoole = None
         segundObjBoole = None
@@ -122,3 +127,26 @@ class Interfaz:
 
     def mover_Elemento(self, evento):
         print(str(evento.x)+" "+str(evento.y))
+
+class MiniInterfaz:
+    def __init__(self):
+        self.__size_x = 500
+        self.__size_y = 400
+
+        self.__name_screen = Tk()
+        self.__name_screen.title("Insertar nombre")
+        self.__name_screen.geometry("500x400+200+200")
+        self.__name_screen.resizable(0, 0)
+
+        self.__name_canva = Canvas(self.__name_screen, width=self.__size_x, height=self.__size_y, bg=white,
+                                    highlightbackground=white)
+        self.__name_canva.pack()
+
+        namelabel = Label(self.__name_screen, text="Inserte nombre y valor", font=font3, fg=tiber, bg=tiber)
+        namelabel.place(x=320, y=750)
+        # disp_var.set("Displacement: " + str(thrustSim.thrust))
+
+        # Entry
+
+        mass_entry = Entry(main_screen, font=font2, bd=3)
+        mass_entry.place(x=20, y=200, width=260, height=50)
