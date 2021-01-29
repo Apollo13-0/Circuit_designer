@@ -16,6 +16,9 @@ font1 = ("Times", 40)
 font2 = ("Times", 25)
 font3 = ("System", 25)
 
+global primerPos, primerObjBoole, segundObjBoole, segundPos
+primerObjBoole = False
+segundObjBoole = False
 
 class Interfaz:
     """
@@ -53,6 +56,7 @@ class Interfaz:
         self.__graph_canva.create_image(400, 100, image=archi2, anchor="nw", tags="movil")
         self.__graph_canva.tag_bind("movil", "<ButtonPress-1>", self.presion_boton)
         self.__graph_canva.tag_bind("movil", "<Button1-Motion>", self.mover)
+        self.__graph_canva.tag_bind("movil", "<ButtonPress-3>", self.presion_union)
         self.carta_seleccionada = None
         # Canvas for inputs
 
@@ -70,11 +74,38 @@ class Interfaz:
         BotonResis = Button(self.__main_screen, text="Resistencia", font=font2, bg=deep_sea, activeforeground=dark_tangerine, command=self.crearResistencia)
         BotonResis.place(x=20, y=530, width=260, height=50)
 
+        BotonFuente = Button(self.__main_screen, text="Fuente", font=font2, bg=deep_sea,
+                            activeforeground=dark_tangerine, command=self.crearFuente)
+        BotonFuente.place(x=20, y=430, width=260, height=50)
+
         mainloop()
 
     def crearResistencia(self):
-        archi3 = PhotoImage(file="resistenciaIMG.png")
-        self.__graph_canva.create_image(500, 100, image=archi3, anchor="nw", tags="movil")
+        self.__graph_canva.create_rectangle(550, 550, 610, 610, fill=brown, outline=brown, tags="movil")
+
+    def crearFuente(self):
+        self.__graph_canva.create_oval(530, 530, 600, 600, outline=dark_tangerine, fill=dark_tangerine, width=2, tags="movil")
+
+    def crearLinea(self, pos1, pos2):
+        self.__graph_canva.create_line(pos1[0],pos1[1],pos2[0],pos2[1],fill="#000000",width=15)
+        global primerPos, segundObjBoole, primerObjBoole,segundPos
+        primerObjBoole = None
+        segundObjBoole = None
+        primerPos = None
+        segundPos = None
+
+
+    def presion_union(self,evento):
+        carta = self.__graph_canva.find_withtag(CURRENT)
+        #self.carta_seleccionada = (carta, evento.x, evento.y)
+        global primerObjBoole, segundObjBoole, primerPos, segundPos
+        if primerObjBoole:
+            segundObjBoole = True
+            segundPos = (evento.x, evento.y)
+            self.crearLinea(primerPos,segundPos)
+        else:
+            primerObjBoole = True
+            primerPos = (evento.x, evento.y)
 
 
     def presion_boton(self, evento):
@@ -86,6 +117,11 @@ class Interfaz:
         carta, x1, y1 = self.carta_seleccionada
         self.__graph_canva.move(carta, x - x1, y - y1)
         self.carta_seleccionada = (carta, x, y)
+
+    def fijar(self,evento):
+        carta = self.__graph_canva.find_withtag(CURRENT)
+        self.carta_seleccionada = (carta, evento.x, evento.y)
+        self.carta_seleccionada.carta
 
     def mover_Elemento(self, evento):
         print(str(evento.x)+" "+str(evento.y))
