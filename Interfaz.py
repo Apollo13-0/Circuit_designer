@@ -150,3 +150,14 @@ class MiniInterfaz:
 
         mass_entry = Entry(self.__name_screen, font=font2, bd=3)
         mass_entry.place(x=20, y=200, width=260, height=50)
+
+class Elemento:
+    num = 1
+
+    def __init__(self, type: str ):
+        self.id = type + str(Elemento.num)
+        Elemento.num += 1
+
+
+    def get_id(self):
+        return self.id
