@@ -10,11 +10,23 @@ class Vertice:
         self.id = clave
         self.conectadoA = {}
 
-    def agregarVecino(self, vecino, peso=0):
+    def agregarVecino(self, vecino, peso):
         """
         Agrega una referencia a otros vertices
         """
-        self.conectadoA[vecino] = peso
+        existe: bool = False
+
+        for amigo in self.conectadoA.keys():
+            if amigo == vecino:
+                existe = True
+                break
+        if not existe:
+            self.conectadoA[vecino] = [peso]
+        else:
+            prev: list = self.conectadoA[vecino]
+            prev.append(peso)
+            self.conectadoA[vecino] = prev
+
 
     def __str__(self):
         """
@@ -82,13 +94,14 @@ class Grafo:
         """
         return n in self.listaVertices
 
-    def agregarArista(self,de,a,costo=0):
+    def agregarArista(self,de,a, costo):
         """
         :param de: de donde parte
         :param a: al vertice que llega
         :param costo: el peso de la arista
         :return: None
         """
+
 
         if de not in self.listaVertices:
             nv = self.agregarVertice(de)

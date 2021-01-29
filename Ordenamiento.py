@@ -32,7 +32,7 @@ class Ordenamiento:
             position = index
 
             while position>0 and nlist[position-1]>currentvalue:
-                nlist[position]=nlist[position-1]
+                nlist[position] = nlist[position-1]
                 position = position-1
 
             nlist[position]=currentvalue
