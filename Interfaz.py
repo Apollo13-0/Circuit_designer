@@ -1,6 +1,8 @@
 # import modules
 
 from tkinter import *
+import random
+from tkinter import messagebox
 
 # Colors
 
@@ -29,6 +31,9 @@ class Interfaz:
         """
 
         """
+        self.__nodo_num = 0
+        self.__valor_nodo = []
+        self.__con_nodos = False
 
         self.__size_x = 1200
         self.__size_y = 800
@@ -54,6 +59,10 @@ class Interfaz:
         self.__graph_canva.tag_bind("movil", "<ButtonPress-1>", self.presion_boton)
         self.__graph_canva.tag_bind("movil", "<Button1-Motion>", self.mover)
         self.__graph_canva.tag_bind("movil", "<ButtonPress-3>", self.presion_union)
+        self.__graph_canva.tag_bind("nodo", "<ButtonPress-1>", lambda x = ""  :self.mostrarvalores(None, x))
+
+
+
         self.carta_seleccionada = None
         # Canvas for inputs
 
@@ -84,12 +93,20 @@ class Interfaz:
         self.__graph_canva.create_oval(530, 530, 600, 600, outline=dark_tangerine, fill=dark_tangerine, width=2, tags="movil")
 
     def crearLinea(self, pos1, pos2):
-        self.__graph_canva.create_line(pos1[0],pos1[1],pos2[0],pos2[1],fill="#000000",width=15)
+        self.__graph_canva.create_line(pos1[0],pos1[1],pos2[0],pos2[1],fill="#000000",width=15, tags = "nodo")
+
+
         global primerPos, segundObjBoole, primerObjBoole,segundPos
         primerObjBoole = None
         segundObjBoole = None
         primerPos = None
         segundPos = None
+
+    def mostrarvalores(self, evento, nombre):
+        messagebox.showinfo(title="Valor del nodo", message=f"Voltaje:{random.randint(1, 100) + random.randint(1, 9)*0.1} V, Corriente: {random.randint(1, 200)+ random.randint(1, 9)*0.1} mA"   )
+
+
+
 
 
     def presion_union(self,evento):
@@ -134,3 +151,4 @@ class Elemento:
 
     def get_id(self):
         return self.id
+
