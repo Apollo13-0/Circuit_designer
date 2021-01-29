@@ -200,10 +200,10 @@ class MiniInterfaz:
     def saveName(self, name, valor, ventana):
         """
         este metodo se encarga de guardar el nuevo nombre y valor, ademas notifica al usuario el cambio
-        :param name:
-        :param valor:
-        :param ventana:
-        :return:
+        :param name: str
+        :param valor: int
+        :param ventana: tk()
+        :return: messagebox indicando que se guardaron correctamente
         """
         Elemento(name.get(), int(valor.get()))
         messagebox.showinfo(title="Nombre guardado", message="El nombre y el valor han sido guardados exitosamente")
@@ -211,15 +211,31 @@ class MiniInterfaz:
 
 
 class Elemento:
+    """
+    esta clase se encarga de crear elementod de resistencias y fuentes de poder
+    """
     num = 1
 
     def __init__(self, type: str, value: int):
+        """
+        Es el constructor de la clase almacena la info del elemento
+        :param type: str
+        :param value: int
+        """
         self.id = type + str(Elemento.num)
         self.value = value
         Elemento.num += 1
 
     def get_id(self):
+        """
+        retorna el id del elemento
+        :return: str
+        """
         return self.id
 
     def get_value(self):
+        """
+        retorna el valor del elemento
+        :return: int
+        """
         return self.value
