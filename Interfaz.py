@@ -50,10 +50,7 @@ class Interfaz:
                                     highlightbackground=white)
         self.__graph_canva.pack()
 
-        archi1 = PhotoImage(file="resistenciaIMG.png")
-        self.__graph_canva.create_image(500, 100, image=archi1, anchor="nw", tags="movil")
-        archi2 = PhotoImage(file="fuenteIMG.png")
-        self.__graph_canva.create_image(400, 100, image=archi2, anchor="nw", tags="movil")
+    
         self.__graph_canva.tag_bind("movil", "<ButtonPress-1>", self.presion_boton)
         self.__graph_canva.tag_bind("movil", "<Button1-Motion>", self.mover)
         self.__graph_canva.tag_bind("movil", "<ButtonPress-3>", self.presion_union)
